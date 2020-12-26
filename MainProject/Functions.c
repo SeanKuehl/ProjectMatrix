@@ -41,3 +41,29 @@ int FindMinor(int x, int y, int matrix[matrixWidthAndHieght][matrixWidthAndHiegh
 	
 
 }
+
+int FindDeterminant(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
+	//given the following the determinant is: minor(a) - minor(b) + minor(c)
+	//a b c
+	//d e f
+	//g h i
+
+	int aValueX = 0;
+	int aValueY = 0;
+
+	int bValueX = 0;
+	int bValueY = 1;
+
+	int cValueX = 0;
+	int cValueY = 2;
+
+	int minorA = FindMinor(aValueX, aValueY, matrix);
+	int minorB = FindMinor(bValueX, bValueY, matrix);
+	int minorC = FindMinor(cValueX, cValueY, matrix);
+
+	int determinant = minorA - minorB + minorC;
+
+	return determinant;
+
+
+}
