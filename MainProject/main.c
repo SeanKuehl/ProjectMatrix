@@ -5,10 +5,10 @@
 
 int main(void) {
 
-	int givenMatrix[3][3] = { {1,2,3}, {4,5,6}, {7,8,9} };
-	int** gottenMatrix = FindMinorMatrix(givenMatrix);
-
-	//int** FindMinorMatrix(int[matrixWidthAndHieght][matrixWidthAndHieght]);
+	int givenMatrix[3][3] = { {1,2,3}, {4,5,10}, {7,8,9} };
+	
+	FindTransposeMatrix(givenMatrix);
+	
 
 	return 0;
 }

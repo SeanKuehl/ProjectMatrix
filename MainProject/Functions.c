@@ -107,7 +107,7 @@ int FindDeterminant(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
 
 }
 
-int** FindMinorMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
+void FindMinorMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
 	//create a matrix where each element is the minor of the 
 	//one in the matrix passed to this function
 
@@ -133,9 +133,120 @@ int** FindMinorMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
 		}
 	}
 
+	for (int i = 0; i < maxXOrYValue; i++) {
+		for (int j = 0; j < maxXOrYValue; j++) {
+			matrix[i][j] = minorMatrix[i][j];
+		}
+		
+	}
+
 	
 
-	return minorMatrix;
 
+}
+
+void FindFlippedMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
+
+	//flip the numbers accross the diagonal(top left to bottom right diagonal)
+	int firstSwapX = 1;
+	int firstSwapY = 0;
+
+	int secondSwapX = 2;
+	int secondSwapY = 0;
+
+	int thirdSwapX = 2;
+	int thirdSwapY = 1;
+
+	int valueAt = 0;
+	int temp = 0;
+
+	//these flippings are crude but I don't believe there's any good formula
+	//for finding them
+
+	valueAt = matrix[firstSwapY][firstSwapX];
+	temp = matrix[firstSwapX][firstSwapY];
+	matrix[firstSwapY][firstSwapX] = temp;
+	matrix[firstSwapX][firstSwapY] = valueAt;
+
+	valueAt = matrix[secondSwapY][secondSwapX];
+	temp = matrix[secondSwapX][secondSwapY];
+	matrix[secondSwapY][secondSwapX] = temp;
+	matrix[secondSwapX][secondSwapY] = valueAt;
+
+	valueAt = matrix[thirdSwapY][thirdSwapX];
+	temp = matrix[thirdSwapX][thirdSwapY];
+	matrix[thirdSwapY][thirdSwapX] = temp;
+	matrix[thirdSwapX][thirdSwapY] = valueAt;
+
+	
+
+}
+
+void FindNegativeMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
+	int everyOtherCounter = 0;
+	int numberToMakeNegativeOn = 1;
+	int resetEveryOtherValue = 2;
+	int maxXOrYValue = 3;
+
+	for (int i = 0; i < maxXOrYValue; i++) {
+		for (int j = 0; j < maxXOrYValue; j++) {
+			if (everyOtherCounter == numberToMakeNegativeOn) {
+				matrix[j][i] = matrix[j][i] * -1;
+			}
+			everyOtherCounter++;
+			if (everyOtherCounter == resetEveryOtherValue) {
+				everyOtherCounter = 0;
+			}
+		}
+	}
+
+	
+}
+
+//will need to do multi-layered approach to deal with 0 determinant case
+void FindTransposeMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght]) {
+	int maxXOrYValue = 3;
+
+	double determinant = FindDeterminant(matrix);	//made this double to fix problem where inversed determinant is always zero
+	
+	if (FindDeterminant(matrix) == 0) {
+		//using findDeterminant again because doubles are harder to check without using a tolerance
+		printf("Matrix is singular, there is no corresponding transpose matrix.\n");
+	}
+	else {
+		double inversedDeterminant = 1 / determinant;
+
+
+
+
+		FindMinorMatrix(matrix);
+
+
+
+		FindFlippedMatrix(matrix);
+
+
+
+
+		FindNegativeMatrix(matrix);
+
+
+
+
+
+		double transposeMatrix[matrixWidthAndHieght][matrixWidthAndHieght];
+
+
+		//could get around just decimals by displaying matrix[i][j] / inversedDeterminant
+		for (int i = 0; i < maxXOrYValue; i++) {
+			for (int j = 0; j < maxXOrYValue; j++) {
+				transposeMatrix[i][j] = inversedDeterminant * matrix[i][j];
+				printf("%f ", transposeMatrix[i][j]);
+			}
+			printf("\n");
+		}
+	}
+
+	
 
 }
