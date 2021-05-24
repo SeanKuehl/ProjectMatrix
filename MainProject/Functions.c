@@ -241,9 +241,9 @@ void FindTransposeMatrix(int matrix[matrixWidthAndHieght][matrixWidthAndHieght])
 		for (int i = 0; i < maxXOrYValue; i++) {
 			for (int j = 0; j < maxXOrYValue; j++) {
 				transposeMatrix[i][j] = inversedDeterminant * matrix[i][j];
-				printf("%f ", transposeMatrix[i][j]);
+				printf("%f, ", transposeMatrix[i][j]);
 			}
-			printf("\n");
+			printf("\n\n");
 		}
 	}
 
